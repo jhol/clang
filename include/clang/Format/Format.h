@@ -247,6 +247,10 @@ struct FormatStyle {
   /// \brief Indent width for line continuations.
   unsigned ContinuationIndentWidth;
 
+  /// \brief Attach brackets to a namespace statement. This is done regardless of
+  /// the brace breaking style being used.
+  bool AttachNamespaceBraces;
+
   bool operator==(const FormatStyle &R) const {
     return AccessModifierOffset == R.AccessModifierOffset &&
            ConstructorInitializerIndentWidth ==
@@ -297,7 +301,8 @@ struct FormatStyle {
            SpaceAfterControlStatementKeyword ==
                R.SpaceAfterControlStatementKeyword &&
            SpaceBeforeAssignmentOperators == R.SpaceBeforeAssignmentOperators &&
-           ContinuationIndentWidth == R.ContinuationIndentWidth;
+           ContinuationIndentWidth == R.ContinuationIndentWidth &&
+           AttachNamespaceBraces == R.AttachNamespaceBraces;
   }
 };
 

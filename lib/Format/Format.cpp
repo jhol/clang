@@ -169,6 +169,7 @@ template <> struct MappingTraits<clang::format::FormatStyle> {
     IO.mapOptional("SpaceBeforeAssignmentOperators",
                    Style.SpaceBeforeAssignmentOperators);
     IO.mapOptional("ContinuationIndentWidth", Style.ContinuationIndentWidth);
+    IO.mapOptional("AttachNamespaceBraces", Style.AttachNamespaceBraces);
   }
 };
 }
@@ -270,6 +271,7 @@ FormatStyle getGoogleStyle() {
   GoogleStyle.SpaceBeforeAssignmentOperators = true;
   GoogleStyle.ContinuationIndentWidth = 4;
   GoogleStyle.SpacesInAngles = false;
+  GoogleStyle.AttachNamespaceBraces = false;
 
   setDefaultPenalties(GoogleStyle);
   GoogleStyle.PenaltyReturnTypeOnItsOwnLine = 200;

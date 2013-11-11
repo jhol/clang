@@ -976,8 +976,9 @@ void UnwrappedLineParser::parseNamespace() {
   if (FormatTok->Tok.is(tok::identifier))
     nextToken();
   if (FormatTok->Tok.is(tok::l_brace)) {
-    if (Style.BreakBeforeBraces == FormatStyle::BS_Linux ||
-        Style.BreakBeforeBraces == FormatStyle::BS_Allman)
+    if (!Style.AttachNamespaceBraces &&
+        (Style.BreakBeforeBraces == FormatStyle::BS_Linux ||
+         Style.BreakBeforeBraces == FormatStyle::BS_Allman))
       addUnwrappedLine();
 
     bool AddLevel = Style.NamespaceIndentation == FormatStyle::NI_All ||
