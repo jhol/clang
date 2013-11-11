@@ -81,6 +81,19 @@ struct ScalarEnumerationTraits<
   }
 };
 
+template <>
+struct ScalarEnumerationTraits<
+    clang::format::FormatStyle::ContinuationAlignmentStyle> {
+  static void
+  enumeration(IO &IO,
+              clang::format::FormatStyle::ContinuationAlignmentStyle &Value) {
+    IO.enumCase(Value, "AlignToParenthesis",
+      clang::format::FormatStyle::CA_AlignToParenthesis);
+    IO.enumCase(Value, "SingleIndent",
+      clang::format::FormatStyle::CA_SingleIndent);
+  }
+};
+
 template <> struct MappingTraits<clang::format::FormatStyle> {
   static void mapping(llvm::yaml::IO &IO, clang::format::FormatStyle &Style) {
     if (IO.outputting()) {
@@ -170,6 +183,7 @@ template <> struct MappingTraits<clang::format::FormatStyle> {
                    Style.SpaceBeforeAssignmentOperators);
     IO.mapOptional("ContinuationIndentWidth", Style.ContinuationIndentWidth);
     IO.mapOptional("AttachNamespaceBraces", Style.AttachNamespaceBraces);
+    IO.mapOptional("ContinuationAlignment", Style.ContinuationAlignment);
   }
 };
 }
@@ -224,6 +238,7 @@ FormatStyle getLLVMStyle() {
   LLVMStyle.SpaceBeforeAssignmentOperators = true;
   LLVMStyle.ContinuationIndentWidth = 4;
   LLVMStyle.SpacesInAngles = false;
+  LLVMStyle.ContinuationAlignment = FormatStyle::CA_AlignToParenthesis;
 
   setDefaultPenalties(LLVMStyle);
   LLVMStyle.PenaltyReturnTypeOnItsOwnLine = 60;

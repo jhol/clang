@@ -399,7 +399,10 @@ unsigned ContinuationIndenter::addTokenOnNewLine(LineState &State,
   } else if (Current.Type == TT_CtorInitializerComma) {
     State.Column = State.Stack.back().Indent;
   } else {
-    State.Column = State.Stack.back().Indent;
+    if (Style.ContinuationAlignment == FormatStyle::CA_AlignToParenthesis)
+      State.Column = State.Stack.back().Indent;
+    else
+      State.Column = State.FirstIndent;
     // Ensure that we fall back to the continuation indent width instead of just
     // flushing continuations left.
     if (State.Column == State.FirstIndent &&

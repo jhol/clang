@@ -251,6 +251,16 @@ struct FormatStyle {
   /// the brace breaking style being used.
   bool AttachNamespaceBraces;
 
+  /// \break Different ways to align continuations.
+  enum ContinuationAlignmentStyle {
+    /// Always align to the opening '('
+    CA_AlignToParenthesis,
+    /// Always indent once
+    CA_SingleIndent
+  };
+
+  ContinuationAlignmentStyle ContinuationAlignment;
+
   bool operator==(const FormatStyle &R) const {
     return AccessModifierOffset == R.AccessModifierOffset &&
            ConstructorInitializerIndentWidth ==
@@ -302,7 +312,8 @@ struct FormatStyle {
                R.SpaceAfterControlStatementKeyword &&
            SpaceBeforeAssignmentOperators == R.SpaceBeforeAssignmentOperators &&
            ContinuationIndentWidth == R.ContinuationIndentWidth &&
-           AttachNamespaceBraces == R.AttachNamespaceBraces;
+           AttachNamespaceBraces == R.AttachNamespaceBraces &&
+           ContinuationAlignment == R.ContinuationAlignment;
   }
 };
 
